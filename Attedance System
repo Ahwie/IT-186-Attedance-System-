@@ -1,0 +1,83 @@
+package javaapplication20;
+import java.util.Scanner;
+public class JavaApplication20 {
+    public static void main(String[] args) {
+
+             {
+        Scanner input = new Scanner(System.in);
+
+
+            String[] studentNames = {"Sintaon Mark", "Vince Baculio", "Ryumen Sacuna", "Glenn Amilao", "Alken Salarde", "Varry Cabudoy", "Jey Oblad", "Mark Larano","Nick Jakaria","Cherry Cajada"};
+            int[] absences = new int[10];
+            int[] noShows = new int[10];
+            int[] present = new int[10];
+
+            for (int Day = 1; Day <= 7; Day++) {
+                System.out.print("\nDo you want to take attendance for day " + Day + "? (Y/N): ");
+                String proceed = input.next();
+                if (proceed.equalsIgnoreCase("Y")) {
+
+
+                } else if (proceed.equalsIgnoreCase("N")) {
+                    System.out.println(" " + Day);
+                    break;
+                }
+
+
+                String date = "";
+                while (true) {
+                    System.out.print("Enter Class Date: ");
+                    date = input.next();
+                    if (date.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                        break;
+                    } else {
+                        System.out.println("Invalid date format. Please enter in MM/DD/YYYY format.");
+                    }
+                }
+                int absentCount = 0;
+                int noShowCount = 0;
+
+                
+                System.out.println("\n[Type A for Absent & P for Present]\n");
+                System.out.println("\n-------Student Attendance Record-------");
+                System.out.println("\nClass Date:" + date);
+                for (int i = 0; i < studentNames.length; i++) {
+                    String studentName = studentNames[i];
+                    System.out.print("Is " + studentName + " Present or Absent?: ");
+                    String attendance = input.next().toUpperCase();
+                    if (attendance.equals("P")) {
+                        present[i]++;
+                    } else if (attendance.equals("A")) {
+                        absences[i]++;
+                        absentCount++;
+                        if (absences[i] >= 4) {
+                            noShows[i]++;
+                            noShowCount++;
+                            if (noShowCount >= 1) {
+                                System.out.println(studentName + " is marked as No Show.");
+                            }
+                        }
+                    } else {
+                        System.out.println("Invalid input. Please enter P or A.");
+                        i--;
+                    }
+                }
+                System.out.println("\n|-----------Attendance Track for First Period------------|");
+                System.out.println("|----------------Class Attendance Sheet------------------|");
+                System.out.println("|--------------------------------------------------------|");
+                System.out.println("|     Student    |   Present  |   Absent    |   No Show  |");
+                System.out.println("|----------------+------------+-------------+------------|");
+                for (int i = 0; i < studentNames.length; i++) {
+
+                    String studentName = studentNames[i];
+                    int totalAbsences = absences[i];
+                    int totalNoShows = noShows[i];
+                    int totalPresent = present[i];
+                    System.out.printf("|  %-13s |     %-7d|     %-8d|   %-7s  |\n" , studentName, totalPresent, totalAbsences, (totalNoShows >= 1 ? "No Show" : "  #  "));
+                    System.out.println("|--------------------------------------------------------|");
+                   
+                }
+            }
+        }
+    }
+}
